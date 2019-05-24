@@ -1,0 +1,244 @@
+extends layout
+block content
+    .row(data-ng-controller="pdf-controller")
+        .col-5
+            form(target="pdfview",action="/pdf",method="post",name="pdfConfForm",data-ng-model="pdfConfForm",data-ng-submit="onSubmit()")
+                .row
+                    .col
+                        .mx-2.my-4.p-2.border
+                            h6
+                                small 
+                                    strong.text-info PDF 
+                            .input-group.input-group-sm.mt-2
+                                .input-group-prepend
+                                    .input-group-text 
+                                        strong Pages&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                input.form-control(type='text',data-ng-model="data.pdf.pages",name="data[pdf][pages]")
+                                .input-group-append
+                                    .input-group-text 
+                                        small.text-muted &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Integer
+                            .input-group.input-group-sm.mt-2
+                                .input-group-prepend
+                                    .input-group-text 
+                                        strong Counting&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                select.form-control(type='text',data-ng-model="data.pdf.counting",name="data[pdf][counting]")
+                                    option(value="horizontal") horizontal
+                                    option(value="vertical") vertical
+                                .input-group-append
+                                    .input-group-text 
+                                        small.text-muted &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Integer
+
+                        .mx-2.my-4.p-2.border
+                            h6
+                                small
+                                    strong.text-info Page 
+                            .input-group.input-group-sm.mt-2
+                                .input-group-prepend
+                                    .input-group-text 
+                                        strong Width&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                input.form-control(type='text',data-ng-model="data.page.width",name="data[page][width]")
+                                .input-group-append
+                                    .input-group-text
+                                        small.text-muted &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cm
+                            .input-group.input-group-sm.mt-2
+                                .input-group-prepend
+                                    .input-group-text 
+                                        strong Height&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                input.form-control(type='text',data-ng-model="data.page.heigth",name="data[page][heigth]")
+                                .input-group-append
+                                    .input-group-text 
+                                        small.text-muted &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cm
+                            .input-group.input-group-sm.mt-2
+                                .input-group-prepend
+                                    .input-group-text 
+                                        strong Margin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                input.form-control(type='text',data-ng-model="data.page.margin",name="data[page][margin]")
+                                .input-group-append
+                                    .input-group-text 
+                                        small.text-muted &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cm
+                        .mx-2.my-4.p-2.border
+                            h6
+                                small 
+                                    strong.text-info Page Matrix
+                            .input-group.input-group-sm.mt-2
+                                .input-group-prepend
+                                    .input-group-text 
+                                        strong Columns&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                input.form-control(type='text',data-ng-model="data.matrix.columns",name="data[matrix][columns]")
+                                .input-group-append
+                                    .input-group-text 
+                                        small.text-muted Integet
+                            .input-group.input-group-sm.mt-2
+                                .input-group-prepend
+                                    .input-group-text 
+                                        strong Rows&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                input.form-control(type='text',data-ng-model="data.matrix.rows",name="data[matrix][rows]")
+                                .input-group-append
+                                    .input-group-text 
+                                        small.text-muted Integer
+                            .input-group.input-group-sm.mt-2
+                                .input-group-prepend
+                                    .input-group-text 
+                                        strong Cell Width&nbsp;&nbsp;&nbsp;&nbsp;
+                                input.form-control(type='text',data-ng-model="data.matrix.width",name="data[matrix][width]")
+                                .input-group-append
+                                    .input-group-text 
+                                        small.text-muted &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cm
+                            .input-group.input-group-sm.mt-2
+                                .input-group-prepend
+                                    .input-group-text 
+                                        strong Cell Height&nbsp;&nbsp;&nbsp;
+                                input.form-control(type='text',data-ng-model="data.matrix.heigth",name="data[matrix][heigth]")
+                                .input-group-append
+                                    .input-group-text 
+                                        small.text-muted &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cm
+                                .input-group.input-group-sm.mt-2
+                                    .input-group-prepend
+                                        .input-group-text 
+                                            strong Image
+                                    select.form-control(data-ng-model="data.matrix.image",name="data[matrix][image]")
+                                        each image in images
+                                            option(value=image)=image
+                                    .input-group-append
+                                            .input-group-text
+                                                small.text-muted Select 
+                        .mx-2.my-4.p-2.border
+                            h6
+                                input(type="checkbox",data-ng-model="data.cutContour",name="data[cutContour]" data-ng-disabled="data.cropmarks")
+                                small 
+                                    strong.text-info Cut Contour
+                            .input-group.input-group-sm.mt-2
+                                .input-group-prepend
+                                    .input-group-text 
+                                        strong Spacer
+                                input.form-control(type='text',data-ng-model="data.cutContourSpace",name="data[cutContourSpace]")
+                                .input-group-append
+                                        .input-group-text
+                                            small.text-muted cm 
+
+
+                        .mx-2.my-4.p-2.border
+                            h6
+                                input(type="checkbox",data-ng-model="data.cropmarks",name="data[cropmarks]" data-ng-disabled="data.cutContour")
+                                small 
+                                    strong.text-info Crop Marks
+
+                            .input-group.input-group-sm.mt-2
+                                .input-group-prepend
+                                    .input-group-text 
+                                        strong Bleed
+                                input.form-control(type='text',data-ng-model="data.cropmarksBleed",name="data[cropmarksBleed]")
+                                .input-group-append
+                                        .input-group-text
+                                            small.text-muted mm 
+
+                            .input-group.input-group-sm.mt-2
+                                .input-group-prepend
+                                    .input-group-text 
+                                        strong Spacer
+                                input.form-control(type='text',data-ng-model="data.cropmarksSpace",name="data[cropmarksSpace]")
+                                .input-group-append
+                                        .input-group-text
+                                            small.text-muted cm 
+                            .input-group.input-group-sm.mt-2
+                                .input-group-prepend
+                                    .input-group-text 
+                                        strong Legth
+                                input.form-control(type='text',data-ng-model="data.cropmarksLength",name="data[cropmarksLength]")
+                                .input-group-append
+                                        .input-group-text
+                                            small.text-muted cm 
+                            .input-group.input-group-sm.mt-2
+                                .input-group-prepend
+                                    .input-group-text 
+                                        strong Color
+                                select.form-control(type='text',data-ng-model="data.cropmarksColor",name="data[cropmarksColor]")
+                                    option(value="black") Black
+                                    option(value="white") White
+                                    option(value="red") Red
+                                .input-group-append
+                                        .input-group-text
+                                            small.text-muted Selct 
+                    .col
+                        .btn-group.mt-4
+                            button.btn.btn-primary(type="submit") Create PDF
+                            a.btn.btn-info(href="#",data-ng-click="save()",id="saveConf") Save
+                            button.btn.btn-danger(type="button",onclick="loadConf()") Load
+                            input(type="file",style="display:none",id="loadConfFile",onchange="angular.element(this).scope().fileNameChanged(event,angular.element(this).scope())")
+                        -for(var i=0;i<2;++i)
+                            .mx-2.my-4.p-2.border
+                                h6
+                                    input(type="checkbox",checked,data-ng-model="showCounter"+i,data-ng-click="activeVounter("+i+")",name="data[counter]["+i+"][showCounter]")
+                                    small 
+                                        strong.text-info='Counter '+i
+                                .input-group.input-group-sm.mt-2
+                                    .input-group-prepend
+                                        .input-group-text
+                                            strong width&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    input.form-control(type='text',data-ng-model="data.counter["+i+"].width",name="data[counter]["+i+"][width]")
+                                    .input-group-append
+                                            .input-group-text 
+                                                small.text-muted &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mm
+                                .input-group.input-group-sm.mt-2
+                                    .input-group-prepend
+                                        .input-group-text 
+                                            strong heigth&nbsp;&nbsp;&nbsp;&nbsp;
+                                    input.form-control(type='text',data-ng-model="data.counter["+i+"].heigth",name="data[counter]["+i+"][heigth]")
+                                    .input-group-append
+                                            .input-group-text 
+                                                small.text-muted &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mm
+                                    .input-group.input-group-sm.mt-2
+                                        .input-group-prepend
+                                            .input-group-text 
+                                                strong Start&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        input.form-control(type='text',data-ng-model="data.counterStart",name="data[counter]["+i+"][start]")
+                                        .input-group-append
+                                                .input-group-text 
+                                                    small.text-muted Integer
+                                    .input-group.input-group-sm.mt-2
+                                        .input-group-prepend
+                                            .input-group-text 
+                                                strong Pad&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        input.form-control(type='text',data-ng-model="data.counter["+i+"].pad",name="data[counter]["+i+"][pad]")
+                                        .input-group-append
+                                                .input-group-text 
+                                                    small.text-muted Integer
+                                    .input-group.input-group-sm.mt-2
+                                        .input-group-prepend
+                                            .input-group-text 
+                                                strong Font
+                                        select.form-control(data-ng-model="data.counter["+i+"].font",,name="data[counter]["+i+"][font]")
+                                            each font in fonts
+                                                option(value=font)=font
+                                        .input-group-append
+                                                .input-group-text
+                                                    small.text-muted Select 
+                                    .input-group.input-group-sm.mt-2
+                                        .input-group-prepend
+                                            .input-group-text 
+                                                strong Font Size
+                                        input.form-control(type='text',data-ng-model="data.counter["+i+"].fontSize",name="data[counter]["+i+"][fontSize]")
+                                        .input-group-append
+                                                .input-group-text 
+                                                    small.text-muted Integer   
+                                        .input-group.input-group-sm.mt-2
+                                            .input-group-prepend
+                                                .input-group-text 
+                                                    strong Color
+                                            input.form-control(type='text',data-ng-model="data.counter["+i+"].color.c",name="data[counter]["+i+"][color][c]")
+                                            input.form-control(type='text',data-ng-model="data.counter["+i+"].color.m",name="data[counter]["+i+"][color][m]")
+                                            input.form-control(type='text',data-ng-model="data.counter["+i+"].color.y",name="data[counter]["+i+"][color][y]")
+                                            input.form-control(type='text',data-ng-model="data.counter["+i+"].color.k",name="data[counter]["+i+"][color][k]")
+                                            .input-group-append
+                                                    .input-group-text 
+                                                        small.text-muted CMYK
+                                        .input-group.input-group-sm.mt-2
+                                            .input-group-prepend
+                                                .input-group-text 
+                                                    strong Counter Text
+                                            input.form-control(type='text',data-ng-model="data.counter["+i+"].staticTXT",name="data[counter]["+i+"][staticTXT]")
+                                            .input-group-append
+                                                    .input-group-text 
+                                                        small.text-muted Text
+        .col-7
+            iframe(style="width:100%;height:90vh",name="pdfview",src="/pdf")
