@@ -3,18 +3,27 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "blob-stream": "^0.1.3",
     "body-parser": "^1.19.0",
+    "blob-stream": "^0.1.3",
     "express": "^4.16.4",
     "pdfkit": "^0.9.1",
     "pug": "^2.0.3",
     "string.prototype.padstart": "^3.0.0",
     "svg-to-pdfkit": "^0.1.7"
-  }
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/MrSRK/pdf.git"
+  },
+  "author": "MrSRK",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MrSRK/pdf/issues"
+  },
+  "homepage": "https://github.com/MrSRK/pdf#readme"
 }
