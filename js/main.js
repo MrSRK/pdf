@@ -22,7 +22,16 @@ app.controller("pdf-controller",['$scope','$http',function($scope,$http)
         },
         counter:[
             {
-                width:10,
+                width:0,
+                heigth:5,
+                pad:3,
+                font:'calibri.ttf',
+                fontSize:14,
+                color:{c:0,m:100,y:100,k:0},
+                staticTXT:'No.'
+            },
+            {
+                width:30,
                 heigth:5,
                 pad:3,
                 font:'calibri.ttf',

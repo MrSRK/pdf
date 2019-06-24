@@ -165,7 +165,7 @@ block content
                             a.btn.btn-info(href="#",data-ng-click="save()",id="saveConf") Save
                             button.btn.btn-danger(type="button",onclick="loadConf()") Load
                             input(type="file",style="display:none",id="loadConfFile",onchange="angular.element(this).scope().fileNameChanged(event,angular.element(this).scope())")
-                        -for(var i=0;i<2;++i)
+                        -for(var i=0;i<3;++i)
                             .mx-2.my-4.p-2.border
                                 h6
                                     input(type="checkbox",checked,data-ng-model="showCounter"+i,data-ng-click="activeVounter("+i+")",name="data[counter]["+i+"][showCounter]")
