@@ -29,7 +29,8 @@ router.all('/pdf', (req,res,next) =>
         var pageHeigth=(data.page.heigth)*pt
         var pageMargin=(data.page.margin)*pt
         const doc = new PDFDocument({ 
-            margin:pageMargin,
+           // margin:pageMargin,
+             margin:0,
             size:[pageWindth,pageHeigth],
             info:{
                 Title:'Vision Group Counter',
@@ -76,7 +77,9 @@ router.all('/pdf', (req,res,next) =>
         var w=(data.matrix.width||10)*pt
         var h=(data.matrix.heigth||10)*pt
         var y=pageMargin
-        var x=pageMargin
+        //var x=pageMargin
+        var x=0;
+       // var y=0;
         if(!Array.isArray(data.counter))
             data.counter=[]
        if(!data.counter[0])
@@ -143,7 +146,8 @@ router.all('/pdf', (req,res,next) =>
         {
             for(var j=0;j<rows;j++)
             {
-                x=pageMargin
+                //x=pageMargin
+                x=0
                 for(var i=0;i<columns;i++)
                 {
                     if(data.pdf.counting=='vertical')
@@ -239,7 +243,9 @@ router.all('/pdf', (req,res,next) =>
                 }
                 y+=h 
             }
-            x=pageMargin
+            //x=pageMargin
+            //y=pageMargin
+            x=0
             y=pageMargin
             if(data.pdf.counting=='vertical')
             {
